@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="kr.cocle.cocleparent">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+
+    <application
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:hardwareAccelerated="true"
+        android:label="@string/app_name"
+        android:launchMode="singleTask"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        tools:replace="android:allowBackup"
+        android:screenOrientation="portrait">
+        <activity android:name=".activity.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="423757e57afbe759223949d87379ba60fab128e6" />
+    </application>
+
+    <!-- FireBase FCM Messege Service -->
+    <!--<service android:name=".service.FireBaseInstanceIDService">-->
+    <!--<intent-filter>-->
+    <!--<action android:name="com.google.firebase.INSTANCE_ID_EVENT" />-->
+    <!--</intent-filter>-->
+    <!--</service>-->
+    <!--<service android:name=".service.FireBaseMsgService">-->
+    <!--<intent-filter>-->
+    <!--<action android:name="com.google.firebase.MESSAGING_EVENT" />-->
+    <!--</intent-filter>-->
+    <!--</service>-->
+
+</manifest>

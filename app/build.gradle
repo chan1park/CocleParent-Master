@@ -1,0 +1,170 @@
+apply plugin: 'com.android.application'
+
+repositories {
+    maven { url 'https://maven.fabric.io/public' }
+}
+
+apply plugin: 'io.fabric'
+
+buildscript {
+    repositories {
+        maven { url 'https://maven.fabric.io/public' }
+    }
+    dependencies {
+        classpath 'io.fabric.tools:gradle:1.+'
+        classpath 'com.android.tools.build:gradle:3.0.0'
+    }
+}
+
+android {
+    compileSdkVersion 24
+    buildToolsVersion '26.0.2' // NDK 사용을 위한 최소 빌드툴 버젼
+
+    defaultConfig {
+        applicationId "kr.cocle.cocleparent"
+        minSdkVersion 16
+        targetSdkVersion 24
+        versionCode 1
+        versionName "1.0.0" // 컨셉,기본디자인 / 기능추가,사양 / 버그,디자인
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        /*어노테이션을 사용하는 프로세스의 컴파일 허용 옵션*/
+        javaCompileOptions {
+            annotationProcessorOptions {
+                includeCompileClasspath = true
+            }
+        }
+    }
+
+    // Lambda Expressions 을 위한 옵션
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    signingConfigs {
+        release {
+            def propsFile = rootProject.file("keystore.properties")
+
+            if (propsFile.exists()) {
+                def props = new Properties()
+                props.load(new FileInputStream(propsFile))
+
+                System.out.println(file(props['storeFile']));
+
+                storePassword = props['storePassword']
+                keyPassword = props['keyPassword']
+                keyAlias = props['keyAlias']
+                storeFile = file(props['storeFile'])
+            }
+            dexOptions {
+                javaMaxHeapSize "12g"
+            }
+        }
+        debug {
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            zipAlignEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt')
+            proguardFiles 'proguard-common.pro'
+            proguardFiles 'proguard-lib.pro'
+            signingConfig signingConfigs.release
+        }
+        debug {
+            minifyEnabled false
+            multiDexEnabled false
+//            zipAlignEnabled true
+//            proguardFiles getDefaultProguardFile('proguard-android.txt')
+//            proguardFiles 'proguard-common.pro'
+//            proguardFiles 'proguard-lib.pro'
+            signingConfig signingConfigs.debug
+        }
+    }
+
+    repositories {
+        maven { url 'https://maven.fabric.io/public' }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    // v4 Compat
+    //noinspection GradleCompatible
+    compile 'com.android.support:support-compat:24.2.0'
+
+    // v7 Compat
+    //noinspection GradleCompatible
+    compile 'com.android.support:appcompat-v7:24.2.1'
+
+    // Core Util Library
+    compile 'com.android.support:support-core-utils:24.2.0'
+
+    // Core UI Library
+    compile 'com.android.support:support-core-ui:24.2.0'
+
+    // Design Library
+    compile 'com.android.support:design:24.2.1'
+
+    // Android annotations
+    compile 'com.android.support:support-annotations:24.2.0'
+
+    // Constraint Layout
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+
+    // jUnit
+    compile 'junit:junit:4.12'
+
+    // Rx Android
+    compile 'io.reactivex:rxandroid:1.1.0'
+
+    // Fabric crashlytics & answers
+    compile('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
+        transitive = true;
+    }
+    compile('com.crashlytics.sdk.android:answers:1.3.13@aar') {
+        transitive = true;
+    }
+
+    // Retrofit
+    compile 'com.squareup.retrofit2:retrofit:2.2.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+
+    // OkHttp
+    compile 'com.squareup.okhttp3:okhttp:3.4.2'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.4.2'
+
+    // SuperToast
+    compile 'com.github.johnpersano:supertoasts:1.3.4@aar'
+
+    // SecurePreferences
+    compile 'com.scottyab:secure-preferences-lib:0.1.4'
+
+    // GlideImageLoader
+    compile 'com.github.bumptech.glide:glide:3.6.1'
+
+    // RecyclerView
+    compile 'com.android.support:recyclerview-v7:24.2.0'
+
+    // CircleIndicator
+    compile 'me.relex:circleindicator:1.2.2@aar'
+
+    // Material Style Progress Dialog
+    compile 'com.afollestad.material-dialogs:commons:0.9.4.4'
+
+    // EventBus
+    compile 'org.greenrobot:eventbus:3.0.0'
+
+    // Butter knife
+    compile 'com.jakewharton:butterknife:7.0.1'
+
+    // Material Style SeekBar
+    compile 'com.crystal:crystalrangeseekbar:1.1.1'
+
+    // Typekit font
+    compile 'com.tsengvn:Typekit:1.0.0'
+
+}
